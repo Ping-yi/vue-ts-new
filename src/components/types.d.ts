@@ -6,3 +6,9 @@ export interface ITableColumnData {
   render: function,
   scopedSlots: {customRender: string}
 }
+
+export interface ITableData {
+  list: array
+  total: number
+  
+}

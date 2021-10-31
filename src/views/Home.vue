@@ -17,12 +17,14 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import TableCom from '@/components/TableCom'
+import { getTableList } from '@/api/table'
 
 @Component({
   components: { TableCom },
 })
 
 export default class Home extends Vue {
+  tableData = {}
   private handleSelectionChange(bb:any) {
     console.log('bb', bb);
     
@@ -54,28 +56,18 @@ export default class Home extends Vue {
       // width: '100',
     },
   ]
-  private tableData: any[] = [
-    {
-      date: '2016-05-02',
-      name: '王小虎',
-      address: '上海市普陀区金沙江路 1518 弄',
-    },
-    {
-      date: '2016-05-04',
-      name: '王小虎',
-      address: '上海市普陀区金沙江路 1517 弄',
-    },
-    {
-      date: '2016-05-01',
-      name: '王小虎',
-      address: '上海市普陀区金沙江路 1519 弄',
-    },
-    {
-      date: '2016-05-03',
-      name: '王小虎',
-      address: '上海市普陀区金沙江路 1516 弄',
-    },
-  ]
+  
+  private async getTableList() {
+    const obj = {
+      pageNumber: 1,
+      pageSize: 10,
+    }
 
+    const data = await getTableList(obj)
+    this.tableData = data
+  }
+  created () {
+    this.getTableList()
+  }
 }
 </script>

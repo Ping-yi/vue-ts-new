@@ -1,12 +1,12 @@
 import Vue, { CreateElement } from 'vue'
 import { Component, Prop } from 'vue-property-decorator'
 
-import { ITableColumnData } from '../types';
+import { ITableColumnData, ITableData } from '../types';
 import Pagination from './Pagination.vue'
 @Component
 export default class TableCom extends Vue {
   @Prop({ default: () => [] }) private columnData!: ITableColumnData[]
-  @Prop({ default: () => [] }) private tableData!: any[]
+  @Prop({ default: {} }) private tableData!: ITableData
   @Prop({ default: true }) private border!: boolean
   @Prop({ default: true }) private stripe!: boolean
   @Prop({ default: false }) private useSelection!: boolean   // 多选
@@ -14,7 +14,7 @@ export default class TableCom extends Vue {
 
   private handleSelectionChange(aa:any) {
     console.log(22, this.$listeners);
-     const change = this.$listeners['selection-change']
+     const change:any = this.$listeners['selection-change']
      change(aa)
   }
   // const paginationEl = () => {
@@ -41,7 +41,7 @@ export default class TableCom extends Vue {
     return (
       <div>
         <el-table
-          data={this.tableData}
+          data={this.tableData.list}
           border={this.border}
           stripe={this.stripe}
           height="150"
